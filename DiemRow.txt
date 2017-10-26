@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ReadFile
+{
+    public class DiemRow
+    {
+        public string MaHS;
+        public string Mon;
+        public float Diem;
+
+        public DiemRow(string MaHS, string Mon, float Diem)
+        {
+            this.MaHS = MaHS;
+            this.Mon = Mon;
+            this.Diem = Diem;
+        }
+
+
+        public override string ToString() {
+            return "Ma HS: " + MaHS + "\n" +
+                "\tMon: " + Mon + "\n" +
+                "\tDiem: " + Diem + "\n";
+        }
+        public string[] GetDiemRow()
+        {
+            return new string[] { MaHS, Mon, Diem.ToString() };
+        } 
+    }
+}

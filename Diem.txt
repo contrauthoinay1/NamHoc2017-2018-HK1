@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ReadFile
+{
+    public class Diem
+    {
+        public List<DiemRow> ListDiem = new List<DiemRow>();
+        int SoField;
+        int SoMauTin;
+        StreamReader sr = new StreamReader("Diem.txt");
+        char[] separator = { ',', ' ', ' ' };
+
+        public Diem()
+        {
+
+
+        }
+
+        public void LoadInfo()
+        {
+            try
+            {
+
+                //the firts line
+                string line = sr.ReadLine();
+                //the second line
+                line = sr.ReadLine().Trim();
+                string[] strs = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                SoField = int.Parse(strs[4]);
+                SoMauTin = int.Parse(strs[9]);
+                while (!sr.EndOfStream)
+                {
+                    line = sr.ReadLine();
+                    line = line.Trim();
+                    if (line.Equals(SoMauTin + ""))
+                    {
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+        public void LoadData()
+        {
+            try
+            {
+                string line;
+                while (!sr.EndOfStream)//chua h?t file
+                {
+                    line = sr.ReadLine();
+                    string[] str = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                    DiemRow row = new DiemRow(str[0], str[1], float.Parse(str[2].Replace('.', ',')));
+                    ListDiem.Add(row);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
+
+
+        public void Print()
+        {
+            foreach (var item in ListDiem)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+    }
+}
